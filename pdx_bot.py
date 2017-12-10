@@ -59,13 +59,15 @@ async def on_ready():
 @bot.command(pass_context=True)
 async def DOW(ctx, target: discord.Member=None):
     user=ctx.message.author
+    user_name=get_name(user)
+    target_name=get_name(target)
     if target is None:
-        await bot.say(get_name(user) + " has declared war on...someone.")
+        await bot.say("{0} has declared war on...someone.".format(user_name))
     elif target == user:
-        await bot.say(get_name(user) + " has declared war on themself.  What an idiot.")
+        await bot.say("{0 has declared war on themself.  What an idiot.".format(user_name))
     else:
         sentence = sample(dow_sentences, 1)
-        await bot.say(get_name(user) + " has declared war on " + get_name(target) + "!  " + sentence[0])
+        await bot.say("{0} has declared war on {1}!  {2}".format(user_name, target_name, sentence))
 
 @bot.command(pass_context=True)
 async def Insult(ctx, target: discord.Member=None):
@@ -73,8 +75,8 @@ async def Insult(ctx, target: discord.Member=None):
     if target is None:
         await bot.say("Erm...whom shall you insult?")
     elif target==user:
-        user = get_name(user)
-        await bot.say("{0} has sent a diplomatic insult to...themself.  What a fool.".format(user))
+        user_name = get_name(user)
+        await bot.say("{0} has sent a diplomatic insult to...themself.  What a fool.".format(user_name))
     else:
         u_leader = None
         t_leader = None
