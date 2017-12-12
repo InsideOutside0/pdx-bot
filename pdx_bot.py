@@ -23,6 +23,13 @@ paradox_games = {"Europa Universalis 4": "Emperor",
 def compare(str1, str2):
     print("{0} | {1}".format(str1, str2))
 
+def is_int(s):
+    try:
+        int(s)
+        return True
+    except ValueError:
+        return False
+
 members = client.get_all_members()
 
 def get_name(user: discord.Member):
@@ -43,19 +50,36 @@ async def on_ready():
     #     user.save()
 
 @bot.command(pass_context=True)
-async def pyr(ctx, arg=None):
+async def pyr(ctx, arg=None, cent=None):
     if arg is None: arg="a"
     if len(arg)>1: arg += " "
-    await bot.say("{0}\n{0}{0}\n{0}{0}{0}\n{0}{0}\n{0}".format(arg))
+    if cent is None: cent=""
+    if is_int(cent)==False: center=3
+    elif cent is None: center=3
+    else: center=int(cent)
+    str=""
+    for line in range(1,center+2):
+        for i in range(1, line):
+            str+=arg
+        str+="\n"
+    for line in range(center, 1, -1):
+        for i in range(1, line):
+            str+=arg
+        str+="\n"
+    await bot.say(str)
 
 @bot.command(pass_context=True)
 async def fuck(ctx, num=None):
     if num is None: num="5"
-    str=""
-    for i in range(1, int(num)+1):
-        if i != num: str+="FUCK\n"
-        else: str+="FUCK"
-    await bot.say(str)
+    if is_int(num)==False: await bot.say("Fuck you")
+    elif int(num) > 0 and int(num)<50:
+        str=""
+        for i in range(1, int(num)+1):
+            if i != num: str+="FUCK\n"
+            else: str+="FUCK"
+        await bot.say(str)
+    else: await bot.say("Fuck you")
+
 
 @bot.command(pass_context=True)
 async def DOW(ctx, target: discord.Member=None):
@@ -71,9 +95,9 @@ async def DOW(ctx, target: discord.Member=None):
 @bot.command(pass_context=True)
 async def Insult(ctx, target: discord.Member=None):
     user=ctx.message.author
+    user_name = get_name(user)
     if target is None: await bot.say("Erm...whom shall you insult?")
     elif target==user:
-        user_name = get_name(user)
         await bot.say("{0} has sent a diplomatic insult to...themself.  What a fool.".format(user_name))
     else:
         u_leader = None
@@ -85,9 +109,18 @@ async def Insult(ctx, target: discord.Member=None):
                 if target.game.name == game: t_leader = paradox_games[game]
         if u_leader is None: u_leader = "King"
         if t_leader is None: t_leader = "King"
-        user_name = get_name(user)
         target_name = get_name(target)
         await bot.say("{0} has sent a diplomatic insult to {1}! {0}'s {2} appears to be astounded by the profane "
                       "actions of {1}'s {3}!".format(user_name, target_name, u_leader, t_leader))
+
+@bot.command(pass_context=True)
+async def roles(ctx, user: discord.Member=None):
+    if user is None: user=ctx.message.author
+    str="The roles of {} are:".format(get_name(user))
+    for role in user.roles:
+        if role.name != "@everyone": str+=" {},".format(role.name)
+    str=str.rstrip(",")
+    await bot.say(str)
+
 
 bot.run("Mzg4NTMwMTc2MDY3MTA4ODY0.DQuZGw.gRTRDpXSCspIu78QGv5lAscXr3U")
