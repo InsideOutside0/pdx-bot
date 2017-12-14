@@ -2,10 +2,11 @@ import discord
 from discord.ext import commands
 from discord.ext.commands import Bot
 from random import *
+
+from general import General
 from mongoengine import *
 import db
 
-# connect('pdxbot_db', host='localhost', port=27017)
 bot = commands.Bot(command_prefix='?')
 client = discord.Client()
 
@@ -40,14 +41,6 @@ def get_name(user: discord.Member):
 async def on_ready():
     print ("PDX Bot starting")
     print ("ID: " + bot.user.id)
-    # for member in members:
-    #     user = db.User(
-    #         name=member.name,
-    #         id=member.id,
-    #         wars=[],
-    #         soldiers=0,
-    #     )
-    #     user.save()
 
 @bot.command(pass_context=True)
 async def pyr(ctx, arg=None, cent=None):
@@ -74,12 +67,11 @@ async def fuck(ctx, num=None):
     if is_int(num)==False: await bot.say("Fuck you")
     elif int(num) > 0 and int(num)<50:
         str=""
-        for i in range(1, int(num)+1):
-            if i != num: str+="FUCK\n"
-            else: str+="FUCK"
+        num_i=int(num)
+        for i in range(1, num_i+1):
+            str+="FUCK\n"
         await bot.say(str)
     else: await bot.say("Fuck you")
-
 
 @bot.command(pass_context=True)
 async def DOW(ctx, target: discord.Member=None):
@@ -90,10 +82,10 @@ async def DOW(ctx, target: discord.Member=None):
     elif target == user: await bot.say("{0 has declared war on themself.\nWhat an idiot.".format(user_name))
     else:
         sentence = sample(dow_sentences, 1)
-        await bot.say("{0} has declared war on {1}!\n{2}".format(user_name, target_name, sentence))
+        await bot.say("{0} has declared war on {1}!\n{2}".format(user_name, target_name, sentence[0]))
 
 @bot.command(pass_context=True)
-async def Insult(ctx, target: discord.Member=None):
+async def insult(ctx, target: discord.Member=None):
     user=ctx.message.author
     user_name = get_name(user)
     if target is None: await bot.say("Erm...whom shall you insult?")
@@ -121,6 +113,25 @@ async def roles(ctx, user: discord.Member=None):
         if role.name != "@everyone": str+=" {},".format(role.name)
     str=str.rstrip(",")
     await bot.say(str)
+
+@bot.command(pass_context=True)
+async def gift(ctx, target: discord.Member=None, ducats: str=None):
+    user=ctx.message.author
+    if target is None: await bot.say("You can't just give your buckets of ducats away like that!")
+    elif target==user: await bot.say("That is quite literally impossible")
+    else:
+        if ducats is None or is_int(ducats)==False: ducats = "500"
+        user_name=get_name(user)
+        target_name=get_name(target)
+        await bot.say("{0} has just given {1} ducat(s) to {2}!\nWhat a nice guy!".format(user_name, ducats, target_name))
+
+@bot.command(pass_context=True)
+async def battle(ctx, target: discord.Member=None):
+    user=ctx.message.author
+    if target is None: await bot.say("Pick a target ya dummy")
+    elif target==user: await bot.say("{0} wants to battle themself.\nBoth sides have lost".format(get_name(user)))
+    else:
+        await bot.say(General.battle(user, target))
 
 
 bot.run("Mzg4NTMwMTc2MDY3MTA4ODY0.DQuZGw.gRTRDpXSCspIu78QGv5lAscXr3U")
