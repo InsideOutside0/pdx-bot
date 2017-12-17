@@ -34,6 +34,9 @@ class General:
 
     @classmethod
     def battle(cls, user: discord.Member, target: discord.Member):
+        if target is None: return "Pick a target ya dummy"
+        elif target == user: return "{0} wants to battle themself.\nBoth sides have lost".format(get_name(user))
+
         user_name = get_name(user)
         target_name = get_name(target)
 
