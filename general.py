@@ -1,11 +1,12 @@
 from random import *
 import discord
 import math
+from util import *
 
 class General:
 
-    terrain = {"grassy": 0,
-               "desert": 0,
+    terrain = {"grassy": 1,
+               "desert": 1,
                "hilly": 1.25,
                "forested": 1.25,
                "jungle": 1.5,
@@ -15,7 +16,8 @@ class General:
                      "Captain Shrimp",
                      "Gott von Moltke",
                      "Alexander the Dead",
-                     "Enrique IV de Trastamara"]
+                     "Enrique IV de Trastamara",
+                     "Santa Clausewitz"]
 
     def __init__(self, name):
         self.name = name
@@ -23,12 +25,6 @@ class General:
         self.shock = None
         self.maneuver = None
         self.siege = None
-
-    def get_name(user: discord.Member):
-        if user.nick:
-            return user.nick
-        else:
-            return user.name
 
     def create_stats(self):
         self.fire=randint(0,6)
@@ -38,39 +34,47 @@ class General:
 
     @classmethod
     def battle(cls, user: discord.Member, target: discord.Member):
-        user_name = cls.get_name(user)
-        target_name = cls.get_name(target)
-        battle_terrain=choice(list(cls.terrain.keys()))
-        u_troops=float(randint(0,100000))
-        t_troops=float(randint(0,100000))
+        user_name = get_name(user)
+        target_name = get_name(target)
+
         u_general_name=sample(cls.general_names, 1)
         t_general_name=sample(cls.general_names, 1)
+        while u_general_name[0] == t_general_name[0]:
+            t_general_name = sample(cls.general_names, 1)
         u_general = General(u_general_name[0])
         t_general = General(t_general_name[0])
         u_general.create_stats()
         t_general.create_stats()
+
         is_river=True
         if randint(1,2)==2: is_river=False
-        terrain_penalty=cls.terrain[battle_terrain]
         river_penalty=1
         if t_general.maneuver>=u_general.maneuver and is_river: river_penalty=1.25
-        u_deaths = (t_troops/30)*(1+t_general.fire/10)+ (t_troops/30)*(1+t_general.shock/10)
+        battle_terrain = choice(list(cls.terrain.keys()))
+        terrain_penalty=cls.terrain[battle_terrain]
+
+        u_troops = float(randint(0, 100000))
+        t_troops = float(randint(0, 100000))
+        u_deaths = (t_troops/20)*(1+t_general.fire/10)+ (t_troops/20)*(1+t_general.shock/10)
         u_deaths = u_deaths*terrain_penalty*river_penalty
-        t_deaths = (u_troops/30)*(1+u_general.fire/10)+ (u_troops/30)*(1+u_general.shock/10)
+        t_deaths = (u_troops/20)*(1+u_general.fire/10)+ (u_troops/20)*(1+u_general.shock/10)
+
         u_deaths=int(math.floor(u_deaths))
         t_deaths=int(math.floor(t_deaths))
         u_troops=int(math.floor(u_troops))
         t_troops=int(math.floor(t_troops))
         if u_deaths>u_troops: u_deaths=u_troops
         if t_deaths>t_troops: t_deaths=t_troops
-        u_remaining=int(u_troops)-u_deaths
-        t_remaining = int(t_troops)-t_deaths
+        u_remaining=u_troops-u_deaths
+        t_remaining = t_troops-t_deaths
+
         winner = None
         if u_remaining>t_remaining: winner = cls.get_name(user)
         else: winner = cls.get_name(target)
         crossing = None
         if is_river: crossing = "will"
         else: crossing = "will not"
+
         return "{0} has initiated a battle with {1} on a {17} terrain!\n" \
                "The attacker {18} face a river crossing penalty.\n" \
                "{0} will start out with {2} troops, and {1} with {3}.\n" \

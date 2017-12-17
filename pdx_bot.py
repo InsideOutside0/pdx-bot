@@ -2,10 +2,13 @@ import discord
 from discord.ext import commands
 from discord.ext.commands import Bot
 from random import *
+from util import *
+
+from pymongo import MongoClient
+import mongo
 
 from general import General
-from mongoengine import *
-import db
+# client = MongoClient(port=27017)
 
 bot = commands.Bot(command_prefix='?')
 client = discord.Client()
@@ -24,28 +27,18 @@ paradox_games = {"Europa Universalis 4": "Emperor",
 def compare(str1, str2):
     print("{0} | {1}".format(str1, str2))
 
-def is_int(s):
-    try:
-        int(s)
-        return True
-    except ValueError:
-        return False
-
-members = client.get_all_members()
-
-def get_name(user: discord.Member):
-    if user.nick: return user.nick
-    else: return user.name
-
 @bot.event
 async def on_ready():
     print ("PDX Bot starting")
     print ("ID: " + bot.user.id)
+    await bot.change_presence(game=discord.Game(name='with your minds'))
+
 
 @bot.command(pass_context=True)
 async def pyr(ctx, arg=None, cent=None):
     if arg is None: arg="a"
     if len(arg)>1: arg += " "
+    arg = arg.replace("_", " ")
     if cent is None: cent=""
     if is_int(cent)==False: center=3
     elif cent is None: center=3
@@ -65,7 +58,7 @@ async def pyr(ctx, arg=None, cent=None):
 async def fuck(ctx, num=None):
     if num is None: num="5"
     if is_int(num)==False: await bot.say("Fuck you")
-    elif int(num) > 0 and int(num)<50:
+    elif int(num) > 0 and int(num)<=50:
         str=""
         num_i=int(num)
         for i in range(1, num_i+1):
