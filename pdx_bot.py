@@ -62,4 +62,4 @@ async def battle(ctx, target: discord.Member=None):
     user=ctx.message.author
     await bot.say(General.battle(user, target))
 
-bot.run("token")
+bot.run("Mzg4NTMwMTc2MDY3MTA4ODY0.DQuZGw.gRTRDpXSCspIu78QGv5lAscXr3U")

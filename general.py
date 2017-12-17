@@ -72,8 +72,8 @@ class General:
         t_remaining = t_troops-t_deaths
 
         winner = None
-        if u_remaining>t_remaining: winner = cls.get_name(user)
-        else: winner = cls.get_name(target)
+        if u_remaining>t_remaining: winner = get_name(user)
+        else: winner = get_name(target)
         crossing = None
         if is_river: crossing = "will"
         else: crossing = "will not"
