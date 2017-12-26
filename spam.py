@@ -22,7 +22,7 @@ def Pyr(arg=None, cent=None):
     else: center=int(cent)
     pyr_flag = False
     if center > 43 or len(arg)*center>100: pyr_flag = True
-    elif pyr_flag and arg[0]!=";" and arg[-1]!=":": return "Too much pyramid"
+    elif pyr_flag and arg[0]!=":" and arg[-1]!=":": return "Too much pyramid"
     else:
         str=""
         for line in range(1,center+2):

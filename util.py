@@ -28,15 +28,6 @@ months = {1: "January",
          11: "November",
          12: "December",}
 
-coms = ["roles [user]- check your roles, or the roles of the selected user",
-            "info [user] - gives your info or that of the selected user",
-            "pyr [letter/word] [size] - spams a pyramid",
-            "fuck [iterations] - fuck",
-            "insult [user] - send a diplomatic insult",
-            "DOW [user] - declares war on the target",
-            "battle [user] - battles the target",
-            "gift [target - sends a gift to the target"]
-
 def get_name(user: discord.Member):
     if user.nick: return user.nick
     else: return user.name
