@@ -1,19 +1,13 @@
-import discord
-from discord.ext import commands
-from discord.ext.commands import Bot
-from random import *
 from util import *
 from spam import *
 from eu4 import *
 from general import General
+from config import *
 
 from pymongo import MongoClient
 import mongo
 
-# client = MongoClient(port=27017)
-
-bot = commands.Bot(command_prefix='?')
-client = discord.Client()
+bot = setup()
 
 # Startup events
 @bot.event
@@ -50,6 +44,11 @@ async def roles(ctx, user: discord.Member=None):
     if user is None: user=ctx.message.author
     await bot.say(Roles(user))
 
+@bot.command(pass_context=True)
+async def info(ctx, user: discord.Member = None):
+    if user is None: user = ctx.message.author
+    await bot.say(Info(user))
+
 # Sends a gift to the target
 @bot.command(pass_context=True)
 async def gift(ctx, target: discord.Member=None, ducats: str=None):
@@ -62,4 +61,5 @@ async def battle(ctx, target: discord.Member=None):
     user=ctx.message.author
     await bot.say(General.battle(user, target))
 
-bot.run("Mzg4NTMwMTc2MDY3MTA4ODY0.DQuZGw.gRTRDpXSCspIu78QGv5lAscXr3U")
+token = get_token()
+bot.run(token)

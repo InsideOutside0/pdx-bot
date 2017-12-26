@@ -15,18 +15,22 @@ def Fuck(num=None):
 def Pyr(arg=None, cent=None):
     if arg is None: arg="a"
     if len(arg)>1: arg += " "
-    arg = arg.replace("_", " ")
+    if arg[0]!=":" and arg[-1]!=":": arg = arg.replace("_", " ")
     if cent is None: cent=""
     if is_int(cent)==False: center=3
     elif cent is None: center=3
     else: center=int(cent)
-    str=""
-    for line in range(1,center+2):
-        for i in range(1, line):
-            str+=arg
-        str+="\n"
-    for line in range(center, 1, -1):
-        for i in range(1, line):
-            str+=arg
-        str+="\n"
-    return str
+    pyr_flag = False
+    if center > 43 or len(arg)*center>100: pyr_flag = True
+    elif pyr_flag and arg[0]!=";" and arg[-1]!=":": return "Too much pyramid"
+    else:
+        str=""
+        for line in range(1,center+2):
+            for i in range(1, line):
+                str+=arg
+            str+="\n"
+        for line in range(center, 1, -1):
+            for i in range(1, line):
+                str+=arg
+            str+="\n"
+        return str
