@@ -17,13 +17,13 @@ async def on_ready():
     await bot.change_presence(game=discord.Game(name='with your minds'))
 
 # Spams a pyramid of desired size
-@bot.command(pass_context=True)
-async def pyr(ctx, arg=None, cent=None):
+@bot.command(pass_context=False)
+async def pyr(arg=None, cent=None):
     await bot.say(Pyr(arg, cent))
 
 # Says "FUCK" a select number of times
-@bot.command(pass_context=True)
-async def fuck(ctx, num=None):
+@bot.command(pass_context=False)
+async def fuck(num=None):
     await bot.say(Fuck(num))
 
 # Declares war on the target
@@ -60,6 +60,10 @@ async def gift(ctx, target: discord.Member=None, ducats: str=None):
 async def battle(ctx, target: discord.Member=None):
     user=ctx.message.author
     await bot.say(General.battle(user, target))
+
+@bot.command(pass_context=False)
+async def test():
+    await bot.say(Test())
 
 token = get_token()
 bot.run(token)

@@ -32,7 +32,7 @@ class General:
         self.maneuver=randint(0,6)
         self.siege=randint(0,6)
 
-    @classmethod
+    @classmethod #Creates a randomly generated battle
     def battle(cls, user: discord.Member, target: discord.Member):
         if target is None: return "Pick a target ya dummy"
         elif target == user: return "{0} wants to battle themself.\nBoth sides have lost".format(get_name(user))

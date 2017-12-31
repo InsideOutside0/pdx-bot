@@ -1,5 +1,17 @@
 import discord
 from util import *
+from random import *
+
+classes = ["English",
+           "Math Anal-ISIS",
+           "Calculus",
+           "Chemistry",
+           "Dick Physics",
+           "APUSH",
+           "Spanglish",
+           "Baguette class",
+           "Comp Gov",
+           "Comp Sci"]
 
 def Fuck(num=None):
     if num is None: num="5"
@@ -34,3 +46,17 @@ def Pyr(arg=None, cent=None):
                 str+=arg
             str+="\n"
         return str
+
+def Test():
+    test_class = sample(classes, 1)
+    test_class = test_class[0]
+    tier = randint(1,10)
+
+    if tier == 1: score = str(randint(0, 50))
+    elif tier == 2: score = str(randint(50, 60))
+    elif tier == 3: score = str(randint(60, 70))
+    elif tier == 4 or tier == 5: score = str(randint(70, 80))
+    elif tier >=6 and tier <= 8: score = str(randint(80, 90))
+    elif tier == 9 or tier == 10: score = str(randint(90, 100))
+
+    return "You got a {0} on your {1} test".format(score, test_class)
