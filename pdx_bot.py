@@ -4,16 +4,14 @@ from eu4 import *
 from general import General
 from config import *
 
-from pymongo import MongoClient
-import mongo
-
+# Initializing the bot from the config file
 bot = setup()
 
 # Startup events
 @bot.event
 async def on_ready():
-    print ("PDX Bot starting")
-    print ("ID: " + bot.user.id)
+    print("PDX Bot starting")
+    print("ID: " + bot.user.id)
     await bot.change_presence(game=discord.Game(name='with your minds'))
 
 # Spams a pyramid of desired size
@@ -52,13 +50,13 @@ async def info(ctx, user: discord.Member = None):
 # Sends a gift to the target
 @bot.command(pass_context=True)
 async def gift(ctx, target: discord.Member=None, ducats: str=None):
-    user=ctx.message.author
+    user = ctx.message.author
     await bot.say(Gift(user, target, ducats))
 
 # Battles the target
 @bot.command(pass_context=True)
 async def battle(ctx, target: discord.Member=None):
-    user=ctx.message.author
+    user = ctx.message.author
     await bot.say(General.battle(user, target))
 
 @bot.command(pass_context=False)
@@ -66,4 +64,5 @@ async def test():
     await bot.say(Test())
 
 token = get_token()
+print(token)
 bot.run(token)

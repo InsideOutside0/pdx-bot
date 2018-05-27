@@ -36,10 +36,10 @@ def compare(str1, str2):
     print("{0} | {1}".format(str1, str2))
 
 def Roles(user: discord.Member):
-    str="The roles of {} are:".format(get_name(user))
+    str = "The roles of {} are:".format(get_name(user))
     for role in user.roles:
-        if role.name != "@everyone": str+=" {},".format(role.name)
-    str=str.rstrip(",")
+        if role.name != "@everyone": str += " {},".format(role.name)
+    str = str.rstrip(",")
     return str
 
 def Info(user: discord.Member):
