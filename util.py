@@ -1,4 +1,5 @@
 import discord
+from discord.ext import commands
 
 def is_int(s):
     try:
@@ -35,17 +36,32 @@ def get_name(user: discord.Member):
 def compare(str1, str2):
     print("{0} | {1}".format(str1, str2))
 
-def Roles(user: discord.Member):
-    str = "The roles of {} are:".format(get_name(user))
-    for role in user.roles:
-        if role.name != "@everyone": str += " {},".format(role.name)
-    str = str.rstrip(",")
-    return str
+class Util():
 
-def Info(user: discord.Member):
-    date = user.created_at
-    dow = dates[date.weekday()]
-    month = months[date.month]
-    str = "{0}'s account was created on {1}, {2} {3}, {4} at {5}:{6}".format(get_name(user), dow, month,
-                                                                            date.day, date.year, date.hour, date.minute)
-    return str
+    def __init__(self, bot):
+        self.bot = bot
+
+    # Returns the roles of the user or target
+    @commands.command(pass_context=True)
+    async def roles(self, ctx, user: discord.Member = None):
+        if user is None: user = ctx.message.author
+        content = "The roles of {} are:".format(get_name(user))
+        for role in user.roles:
+            if role.name != "@everyone": content += " {},".format(role.name)
+        content = content.rstrip(",")
+        await self.bot.say(content)
+
+    @commands.command(pass_context=True)
+    async def info(self, ctx, user: discord.Member = None):
+        if user is None: user = ctx.message.author
+        date = user.created_at
+        dow = dates[date.weekday()]
+        month = months[date.month]
+        content = "{0}'s account was created on {1}, {2} {3}, {4} at {5}:{6}".format(get_name(user), dow, month,
+                                                                                     date.day, date.year, date.hour,
+                                                                                     date.minute)
+        await self.bot.say(content)
+
+def setup(bot):
+    bot.add_cog(Util(bot))
+
