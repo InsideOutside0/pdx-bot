@@ -6,14 +6,18 @@ config = configparser.ConfigParser()
 config_file = Path("config.ini")
 
 def setup():
-    config['setup'] = {"token": "none",
+    try:
+        config.read("config.ini")
+        prefix = config["setup"]["command_prefix"]
+        return commands.Bot(command_prefix=prefix)
+    except Exception:
+        config['setup'] = {"token": "none",
                        "command_prefix": "?"}
-    if config_file.is_file() == False:
         with open('config.ini', 'w') as configfile:
             config.write(configfile)
-    config.read("config.ini")
-    prefix = config["setup"]["command_prefix"]
-    return commands.Bot(command_prefix=prefix)
+        print("Failed to locate config.ini.  Generating new file.")
+        raise SystemExit
+
 
 def get_token():
     if config_file.is_file:
