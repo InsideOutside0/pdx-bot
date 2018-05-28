@@ -19,5 +19,8 @@ def setup():
         raise SystemExit
 
 def get_token():
-    if config_file.is_file: return config.get("setup", "token")
-
+    try:
+        return config.get("setup", "token")
+    except Exception:
+        print("Failed to retrieve proper token.  Aborting.")
+        raise SystemExit

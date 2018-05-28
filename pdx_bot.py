@@ -25,4 +25,9 @@ if __name__ == "__main__":
     # retrieve the token and launch the bot
     token = get_token()
     print(token)
-    bot.run(token)
+    try:
+        bot.run(token)
+    except Exception:
+        print("Failed to send proper token. Aborting.")
+        raise SystemExit
+
