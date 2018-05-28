@@ -15,11 +15,9 @@ def setup():
                        "command_prefix": "?"}
         with open('config.ini', 'w') as configfile:
             config.write(configfile)
-        print("Failed to locate config.ini.  Generating new file.")
+        print("Failed to locate config.ini. Generating new file.")
         raise SystemExit
 
-
 def get_token():
-    if config_file.is_file:
-        return config.get("setup", "token")
+    if config_file.is_file: return config.get("setup", "token")
 

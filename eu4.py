@@ -1,20 +1,21 @@
 import discord
 from discord.ext import commands
-from util import get_name
+from util import *
 from random import *
 
 dow_sentences = ["May God have mercy on us all.",
                  "May this war hopefully end before Christmas.",
                  "One can hope that this war shall not cause further conflict.",
-                 "The global community hopes that this war shall resolve any current tensions."]
+                 "The global community hopes that this war shall resolve any current tensions.", ]
 
 paradox_games = {"Europa Universalis 4": "Emperor",
                  "Victoria 2": "President",
                  "Stellaris": "Space Emperor",
                  "Hearts of Iron IV": "Chancellor",
-                 "Crusader Kings 2": "Duke"}
+                 "Crusader Kings 2": "Duke", }
 
-class Eu4():
+
+class Eu4:
 
     def __init__(self, bot):
         self.bot = bot
@@ -26,7 +27,7 @@ class Eu4():
         user_name = get_name(user)
         target_name = get_name(target)
         if target is None:
-            content =  "{0} has declared war on...someone.".format(user_name)
+            content = "{0} has declared war on...someone.".format(user_name)
         elif target == user:
             content = "{0 has declared war on themself.\nWhat an idiot.".format(user_name)
         else:
@@ -40,7 +41,7 @@ class Eu4():
         user = ctx.message.author
         user_name = get_name(user)
         if target is None:
-            content = ("Erm...whom shall you insult?")
+            content = "Erm...whom shall you insult?"
         elif target == user:
             content = ("{0} has sent a diplomatic insult to...themself.  What a fool.".format(user_name))
         else:
@@ -63,15 +64,16 @@ class Eu4():
     async def gift(self, ctx, target: discord.Member = None, ducats: str = None):
         user = ctx.message.author
         if target is None:
-            content =  "You can't just give your buckets of ducats away like that!"
+            content = "You can't just give your buckets of ducats away like that!"
         elif target == user:
-            content =  "That is quite literally impossible"
+            content = "That is quite literally impossible"
         else:
             if ducats is None or is_int(ducats) == False: ducats = "500"
             user_name = get_name(user)
             target_name = get_name(target)
             content = "{0} has just given {1} ducat(s) to {2}!\nWhat a nice guy!".format(user_name, ducats, target_name)
         await self.bot.say(content)
+
 
 def setup(bot):
     bot.add_cog(Eu4(bot))

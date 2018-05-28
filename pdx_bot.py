@@ -7,8 +7,8 @@ bot = setup()
 # This is which files the commands are house in
 startup_extensions = ["eu4", "war", "spam", "util"]
 
-# Startup events
-@bot.event
+
+@bot.event  # Startup events
 async def on_ready():
     print("PDX Bot starting")
     print("ID: " + bot.user.id)

@@ -1,6 +1,7 @@
 import discord
 from discord.ext import commands
 
+
 def is_int(s):
     try:
         int(s)
@@ -8,35 +9,39 @@ def is_int(s):
     except ValueError:
         return False
 
+
 dates = {1: "Monday",
          2: "Tuesday",
          3: "Wednesday",
          4: "Thursday",
          5: "Friday",
          6: "Saturday",
-         0: "Sunday"}
+         0: "Sunday", }
 
 months = {1: "January",
-         2: "February",
-         3: "March",
-         4: "April",
-         5: "May",
-         6: "June",
-         7: "July",
-         8: "August",
-         9: "September",
-         10: "October",
-         11: "November",
-         12: "December",}
+          2: "February",
+          3: "March",
+          4: "April",
+          5: "May",
+          6: "June",
+          7: "July",
+          8: "August",
+          9: "September",
+          10: "October",
+          11: "November",
+          12: "December", }
+
 
 def get_name(user: discord.Member):
     if user.nick: return user.nick
     else: return user.name
 
+
 def compare(str1, str2):
     print("{0} | {1}".format(str1, str2))
 
-class Util():
+
+class Util:
 
     def __init__(self, bot):
         self.bot = bot
@@ -61,6 +66,7 @@ class Util():
                                                                                      date.day, date.year, date.hour,
                                                                                      date.minute)
         await self.bot.say(content)
+
 
 def setup(bot):
     bot.add_cog(Util(bot))

@@ -13,9 +13,10 @@ classes = ["English",
            "Spanglish",
            "Baguette class",
            "Comp Gov",
-           "Comp Sci"]
+           "Comp Sci", ]
 
-class Spam():
+
+class Spam:
 
     def __init__(self, bot):
         self.bot = bot
@@ -32,7 +33,7 @@ class Spam():
         else: center = int(cent)
         pyr_flag = False
         if center > 43 or len(arg) * center > 100:
-            pyr_flag = True
+            content = "Too much pyramid"
         elif pyr_flag and arg[0] != ":" and arg[-1] != ":":
             content = "Too much pyramid"
         else:
@@ -83,6 +84,7 @@ class Spam():
 
         content = "You got a {0} on your {1} test".format(score, test_class)
         await self.bot.say(content)
+
 
 def setup(bot):
     bot.add_cog(Spam(bot))
