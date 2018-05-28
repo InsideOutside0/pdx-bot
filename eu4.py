@@ -1,6 +1,6 @@
 import discord
 from discord.ext import commands
-from util import *
+from util import get_name
 from random import *
 
 dow_sentences = ["May God have mercy on us all.",

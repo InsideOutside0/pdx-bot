@@ -1,8 +1,5 @@
-from util import *
-from spam import *
-from eu4 import *
-from war import General
 from config import *
+import discord
 
 # Initializing the bot from the config file
 bot = setup()
@@ -18,12 +15,14 @@ async def on_ready():
     await bot.change_presence(game=discord.Game(name='with your minds'))
 
 if __name__ == "__main__":
+    # load extensions or yield an error for why they couldn't be loaded
     for extension in startup_extensions:
         try:
             bot.load_extension(extension)
         except Exception as e:
             exc = '{}: {}'.format(type(e).__name__, e)
             print('Failed to load extension {}\n{}'.format(extension, exc))
+    # retrieve the token and launch the bot
     token = get_token()
     print(token)
     bot.run(token)

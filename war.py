@@ -1,7 +1,8 @@
-from random import *
+import discord
 from discord.ext import commands
+from random import *
 import math
-from util import *
+from util import get_name
 
 class War():
     def __init__(self, bot):
