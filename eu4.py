@@ -6,7 +6,8 @@ from random import *
 dow_sentences = ["May God have mercy on us all.",
                  "May this war hopefully end before Christmas.",
                  "One can hope that this war shall not cause further conflict.",
-                 "The global community hopes that this war shall resolve any current tensions.", ]
+                 "The global community hopes that this war shall resolve any current tensions.",
+                 "All Fortnite players have been drafted and are dropping in Syria.", ]
 
 paradox_games = {"Europa Universalis 4": "Emperor",
                  "Victoria 2": "President",

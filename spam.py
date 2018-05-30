@@ -65,8 +65,7 @@ class Spam:
 
     @commands.command(pass_context=False)
     async def test(self):
-        test_class = sample(classes, 1)
-        test_class = test_class[0]
+        test_class = sample(classes, 1)[0]
         tier = randint(1, 10)
 
         if tier == 1:

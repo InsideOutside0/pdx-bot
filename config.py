@@ -5,6 +5,7 @@ from discord.ext import commands
 config = configparser.ConfigParser()
 config_file = Path("config.ini")
 
+
 def setup():
     try:
         config.read("config.ini")
@@ -17,6 +18,7 @@ def setup():
             config.write(configfile)
         print("Failed to locate config.ini. Generating new file.")
         raise SystemExit
+
 
 def get_token():
     try:
