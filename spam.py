@@ -4,12 +4,10 @@ from util import *
 from random import *
 
 classes = ["English",
-           "Math Anal-ISIS",
            "Calculus",
            "Chemistry",
            "Dick Physics",
            "Gov",
-           "APUSH",
            "Spanglish",
            "Baguette class",
            "Comp Gov",

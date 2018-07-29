@@ -30,7 +30,7 @@ class Eu4:
         if target is None:
             content = "{0} has declared war on...someone.".format(user_name)
         elif target == user:
-            content = "{0 has declared war on themself.\nWhat an idiot.".format(user_name)
+            content = "{0} has declared war on themself.\nWhat an idiot.".format(user_name)
         else:
             sentence = sample(dow_sentences, 1)
             content = "{0} has declared war on {1}!\n{2}".format(user_name, target_name, sentence[0])
@@ -67,7 +67,7 @@ class Eu4:
         if target is None:
             content = "You can't just give your buckets of ducats away like that!"
         elif target == user:
-            content = "That is quite literally impossible"
+            content = "That is redundant"
         else:
             if ducats is None or is_int(ducats) == False: ducats = "500"
             user_name = get_name(user)
