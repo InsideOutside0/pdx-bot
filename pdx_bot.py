@@ -1,8 +1,10 @@
-from config import *
+import config
 import discord
+import os.path
+import db
 
 # Initializing the bot from the config file
-bot = setup()
+bot = config.setup()
 
 # This is which files the commands are house in
 startup_extensions = ["eu4", "war", "spam", "util"]
@@ -22,8 +24,10 @@ if __name__ == "__main__":
         except Exception as e:
             exc = '{}: {}'.format(type(e).__name__, e)
             print('Failed to load extension {}\n{}'.format(extension, exc))
+    if not os.path.isfile("database.db"):
+        db.create_db()
     # retrieve the token and launch the bot
-    token = get_token()
+    token = config.get_token()
     print(token)
     try:
         bot.run(token)
