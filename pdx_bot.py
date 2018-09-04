@@ -14,7 +14,7 @@ startup_extensions = ["eu4", "war", "spam", "util"]
 async def on_ready():
     print("PDX Bot starting")
     print("ID: " + bot.user.id)
-    await bot.change_presence(game=discord.Game(name='with your minds'))
+    await bot.change_presence(game=discord.Game(name=config.get_presence()))
 
 if __name__ == "__main__":
     # load extensions or yield an error for why they couldn't be loaded
@@ -28,7 +28,6 @@ if __name__ == "__main__":
         db.create_db()
     # retrieve the token and launch the bot
     token = config.get_token()
-    print(token)
     try:
         bot.run(token)
     except Exception:

@@ -13,7 +13,7 @@ def setup():
         return commands.Bot(command_prefix=prefix)
     except Exception:
         config['setup'] = {"token": "none",
-                       "command_prefix": "?"}
+                       "command_prefix": "?", "presence": "with your minds"}
         with open('config.ini', 'w') as configfile:
             config.write(configfile)
         print("Failed to locate config.ini. Generating new file.")
@@ -26,3 +26,10 @@ def get_token():
     except Exception:
         print("Failed to retrieve proper token.  Aborting.")
         raise SystemExit
+
+
+def get_presence():
+    try:
+        return config.get("setup", "presence")
+    except Exception:
+        print("Failed to retrieve presence.  Aborting.")
