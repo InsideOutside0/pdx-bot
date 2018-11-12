@@ -12,5 +12,4 @@ def create_db():
 
 
 def create_server_table(s):
-    c.execute('''CREATE TABLE %s
-                 (username text, troops integer)''', s)
+    c.execute('''CREATE TABLE %s (username text, troops integer)''', s)

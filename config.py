@@ -13,7 +13,7 @@ def setup():
         return commands.Bot(command_prefix=prefix)
     except Exception:
         config['setup'] = {"token": "none",
-                       "command_prefix": "?", "presence": "with your minds"}
+                           "command_prefix": "?", "presence": "with your minds"}
         with open('config.ini', 'w') as configfile:
             config.write(configfile)
         print("Failed to locate config.ini. Generating new file.")

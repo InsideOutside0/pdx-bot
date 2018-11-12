@@ -19,17 +19,14 @@ async def on_ready():
 if __name__ == "__main__":
     # load extensions or yield an error for why they couldn't be loaded
     for extension in startup_extensions:
-        try:
-            bot.load_extension(extension)
+        try: bot.load_extension(extension)
         except Exception as e:
             exc = '{}: {}'.format(type(e).__name__, e)
             print('Failed to load extension {}\n{}'.format(extension, exc))
-    if not os.path.isfile("database.db"):
-        db.create_db()
+    if not os.path.isfile("database.db"): db.create_db()
     # retrieve the token and launch the bot
     token = config.get_token()
-    try:
-        bot.run(token)
+    try: bot.run(token)
     except Exception:
         print("Failed to send proper token. Aborting.")
         raise SystemExit

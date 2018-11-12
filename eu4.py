@@ -7,7 +7,8 @@ dow_sentences = ["May God have mercy on us all.",
                  "May this war hopefully end before Christmas.",
                  "One can hope that this war shall not cause further conflict.",
                  "The global community hopes that this war shall resolve any current tensions.",
-                 "All Fortnite players have been drafted and are dropping in Syria.", ]
+                 "All Fortnite players have been drafted and are dropping in Syria.",
+                 "Generation Z would be happy to put themselves in harm's way.", ]
 
 paradox_games = {"Europa Universalis 4": "Emperor",
                  "Victoria 2": "President",
@@ -69,7 +70,7 @@ class Eu4:
         elif target == user:
             content = "That is redundant"
         else:
-            if ducats is None or is_int(ducats) == False: ducats = "500"
+            if ducats is None or not is_int(ducats): ducats = "500"
             user_name = get_name(user)
             target_name = get_name(target)
             content = "{0} has just given {1} ducat(s) to {2}!\nWhat a nice guy!".format(user_name, ducats, target_name)

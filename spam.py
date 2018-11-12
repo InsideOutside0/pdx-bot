@@ -26,13 +26,12 @@ class Spam:
         if len(arg) > 1: arg += " "
         if arg[0] != ":" and arg[-1] != ":": arg = arg.replace("_", " ")
         if cent is None: cent = ""
-        if is_int(cent) == False: center = 3
+        if not is_int(cent): center = 3
         elif cent is None: center = 3
         else: center = int(cent)
-        pyr_flag = False
         if center > 43 or len(arg) * center > 100:
             content = "Too much pyramid"
-        elif pyr_flag and arg[0] != ":" and arg[-1] != ":":
+        elif arg[0] != ":" and arg[-1] != ":":
             content = "Too much pyramid"
         else:
             content = ""
@@ -50,7 +49,7 @@ class Spam:
     @commands.command(pass_context=False)
     async def fuck(self, num=None):
         if num is None: num = "5"
-        if is_int(num) == False:
+        if not is_int(num):
             content = "Fuck you"
         elif int(num) > 0 and int(num) <= 50:
             content = ""
@@ -65,6 +64,7 @@ class Spam:
     async def test(self):
         test_class = sample(classes, 1)[0]
         tier = randint(1, 10)
+        score = 0
 
         if tier == 1:
             score = str(randint(0, 50))

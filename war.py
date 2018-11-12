@@ -63,7 +63,7 @@ class General:
         t_general.create_stats()
 
         is_river = True
-        if randint(1, 2) == 2: is_river=False
+        if randint(1, 2) == 2: is_river = False
         river_penalty = 1
         if t_general.maneuver >= u_general.maneuver and is_river: river_penalty=1.25
         battle_terrain = choice(list(cls.terrain.keys()))
