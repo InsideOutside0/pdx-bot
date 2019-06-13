@@ -89,15 +89,14 @@ class General:
         if is_river: crossing = "will"
         else: crossing = "will not"
 
-        return "{0} has initiated a battle with {1} on a {17} terrain!\n" \
-               "The attacker {18} face a river crossing penalty.\n" \
-               "{0} will start out with {2} troops, and {1} with {3}.\n" \
-               "{0}'s general, {4}, a {5} {6} {7} {8}, will fight {1}'s general, {9}, a {10} {11} {12} {13}. " \
-               "{0} has lost {14} men, and {1} has lost {15}\n{16} is the winner!"\
-            .format(user_name, target_name, str(u_troops), str(t_troops), u_general.name, str(u_general.fire),
-                    str(u_general.shock), str(u_general.maneuver), str(u_general.siege), t_general.name,
-                    str(t_general.fire), str(t_general.shock), str(t_general.maneuver), str(t_general.siege),
-                    str(u_deaths), str(t_deaths), winner, battle_terrain, crossing)
+        return f"{user.name} has initiated a battle with {target_name} on a {battle_terrain} terrain!\n" \
+               f"The attacker {crossing} face a river crossing penalty.\n" \
+               f"{user.name} will start out with {u_troops} troops, and {target_name} with {t_troops}.\n" \
+               f"{user_name}'s general, {u_general_name}, " \
+               f"a {u_general.fire} {u_general.shock} {u_general.maneuver} {u_general.siege}, " \
+               f"will fight {target_name}'s general, {t_general_name}, " \
+               f"a {t_general.fire} {t_general.shock} {t_general.maneuver} {t_general.siege}. " \
+               f"{user_name} has lost {u_deaths} men, and {target_name} has lost {t_deaths}\n{winner} is the winner!"
 
 
 def setup(bot):
